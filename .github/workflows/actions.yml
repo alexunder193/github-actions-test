@@ -1,6 +1,9 @@
 name: Actions Workflow                                         # workflow name
-on: 
-  push:                                                        # when push
+on:
+  schedule:                                                    # run on specific time not after push or pull
+    - cron: "0/5 * * * *"                                      # "minute hour day month year" "0/15 started every minute 0 every 15"
+    - cron: "0/6 * * * *"  
+  #push:                                                       # when push
   pull_request:                                                # when pull request
     types: [closed, assigned, opened, reopened]    
 jobs:                                                          # do specific jobs. In our case one job run-github-actions
