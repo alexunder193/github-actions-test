@@ -1,5 +1,5 @@
 name: Actions Workflow                                         # workflow name
-on: [push]                                                     # when psuh
+on: [push, pull_request]                                                     # when psuh
 jobs:                                                          # do specific jobs. In our case one job run-github-actions
   run-github-actions:
     runs-on: ubuntu-latest                                     # the vm of git that I will interact
