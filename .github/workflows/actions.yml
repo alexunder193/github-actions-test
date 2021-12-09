@@ -1,20 +1,36 @@
-name: Actions Workflow
-on: [push]
-jobs: 
+name: Actions Workflow                                         # workflow name
+on: [push]                                                     # when psuh
+jobs:                                                          # do specific jobs. In our case one job run-github-actions
   run-github-actions:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-latest                                     # the vm of git that I will interact
+    steps:                                                     # steps: List Files, Checkout , List Files After Checkout, Simple JS Action, Log Greeting Time
       - name: List Files
-        run: |
+        # run for running command | for runninge multiple commands
+        # pwd /home/runner/work/github-actions-test/github-actions-test
+        # ls -a shows nothing because we haven't our project in vm. We will do it either with checkout action or with git commands
+        # echo $GITHUB_SHA The commit name hashed
+        # echo $GITHUB_REPOSITORY the repository of the project
+        # echo $GITHUB_WORKSPACE the workspace of vm
+        # echo "{{ github.token }}" token for authentication
+        run: |                                        
           pwd
           ls -a
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "{{ github.token }}"
+          # git clone git@github:$GITHUB_REPOSITORY
+          # git checkout $GITHUB_SHA
+        # either I will call action for checkour or I will do it alone with clone and checkout git instruction
       - name: Checkout
         uses: actions/checkout@v1
       - name: List Files After Checkout
+        #now ls -a will show results because we have our project in github vm. It's like lazy process checkout the project only if needs.
         run: |
           pwd
           ls -a
       - name: Simple JS Action
+        # Use actions that exists on github id:greet is linked with steps.greet
         id: greet
         uses: actions/hello-world-javascript-action@v1
         with:
